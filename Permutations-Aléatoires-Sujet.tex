@@ -1,0 +1,212 @@
+\documentclass[12pt]{article}
+\unitlength 1cm
+\textwidth 16cm
+\textheight 25.5cm
+\topmargin -2cm
+\oddsidemargin 0cm
+\evensidemargin 0cm
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[latin1]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\wh}{\widehat}
+\newcommand{\ind}{\mbox{1}\kern-.25em \mbox{I}}
+\font\calcal=cmsy10 scaled\magstep1
+\def\build#1_#2^#3{\mathrel{\mathop{\kern 0pt#1}\limits_{#2}^{#3}}}
+\def\liml{\build{\longrightarrow}_{}^{{\mbox{\calcal L}}}}
+\def\limp{\build{\longrightarrow}_{}^{{\mbox{\calcal P}}}}
+
+\input{macros}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\ \\
+{\bf UNIVERSIT\'E DE BORDEAUX}\hspace{6cm}{\bf  Le 15/01/2020}\newline 
+{\bf L3 Projet Applicatif, 2019/2020} \newline 
+\begin{center}
+{\large {\bf STATISTIQUES SUR LES PERMUTATIONS ALÉATOIRES}} \vspace{2ex} \\
+{\large {\bf Bernard Bercu}} \\  
+{\large {\bf bernard.bercu@math.u-bordeaux.fr}} \\
+\end{center}
+
+\ \vspace{2ex}\\
+L'objectif de ce projet applicatif est d'étudier quelques statistiques de permuations aléatoires.
+On va s'intéresser en particulier au nombre de descentes, au nombre de pics, ainsi qu'à la longueur
+de la plus grande sous-suite alternée de permutations aléatoires.
+
+\section{Nombre de descentes.}
+Soit $S_n$ l'ensemble des permutations des $n$ premiers entiers avec $n \geq 1$. Soit $\pi$ une permutation de $S_n$. 
+On dit que $\pi$ a une descente à la position $k$ si $\pi(k+1)<\pi(k)$. On note $D_n$ la variable aléatoire comptant
+le nombre de descentes d'une permutation choisie aléatoirement dans $S_n$. Il est clair que $D_1=0$ et pour tout $n\geq 2$,
+$$
+D_n(\Omega)=\bigl\{0,1,\ldots,n-1\bigr\}.
+$$ 
+En particulier, on a $\dP(D_2=0)=\dP(D_2=1)=1/2$.
+On s'intéresse au comportement asymptotique de la suite $(D_n)$. 
+On peut montrer \cite{Bona12}, \cite{Ozdemir19} que pour tout $n \geq 1$,
+\begin{equation*}
+    \left \{ \begin{array}{ccc}
+    \dP(D_{n+1}  = D_{n}+1|D_n)  & = &{\displaystyle  \frac{n-D_n}{n+1} } \vspace{1ex}\\
+    \dP(D_{n+1}  =  D_{n}|D_n) & = & {\displaystyle \frac{D_n+1}{n+1}}
+   \end{array} \nonumber \right.
+\end{equation*}
+On en déduit la décomposition
+\begin{equation*}
+D_{n+1}=D_n+\varepsilon_{n+1}
+\end{equation*}
+avec
+\begin{equation*}
+   \varepsilon_{n+1}= \left \{ \begin{array}{ccc}
+    1 & \text{ avec probabilit\'e } & p_n \vspace{1ex}\\
+    0  & \text{ avec probabilit\'e } & 1-p_n 
+   \end{array} \nonumber \right.
+\end{equation*}
+où
+$$
+p_n= \frac{n-D_n}{n+1} .
+$$
+On peut montrer la convergence presque sure
+$$
+\lim_{n\rightarrow \infty} \frac{D_n}{n}=\frac{1}{2} \hspace{1cm}\text{p.s.}
+$$
+ainsi que la normalité asymptotique \cite{Chat-Diaconis17}
+$$
+\sqrt{n}\Bigl( \frac{D_n}{n} - \frac{1}{2} \Bigr) \liml \cN \Bigl(0, \frac{1}{12}\Bigr).
+$$
+
+\section{Nombre de pics.}
+
+On va maintenant compter les pics d'une permutation aléatoire. Soit $\pi$ une permutation de $S_n$. 
+On dit que $\pi$ a un pic à la position $k$ si $\pi(k-1)> \pi(k) <\pi(k+1)$ ou si $\pi(k-1)< \pi(k) >\pi(k+1)$. On note 
+$G_n=G_n(\pi)$ la variable aléatoire comptant le nombre de pics d'une permutation $\pi$ choisie aléatoirement dans $S_n$. 
+On a $G_2=1$ et $\dP(G_3=1)=1/3$ et $\dP(G_3=2)=2/3$.
+De plus, on a \cite{Ozdemir19} pour tout $n \geq 1$,
+\begin{equation*}
+    \left \{ \begin{array}{ccc}
+    \dP(G_{n+1}  = G_{n}+2|G_n)  & =&{\displaystyle  \frac{n-1-G_n}{n+1} }, \vspace{1ex}\\
+    \dP(G_{n+1}  = G_{n}+1|G_n)  & =&{\displaystyle  \frac{2}{n+1} }, \vspace{1ex}\\
+    \dP(G_{n+1}  =  G_{n}|G_n) & = & {\displaystyle \frac{G_n}{n+1}}.
+   \end{array} \nonumber \right.
+\end{equation*}
+On en déduit la décomposition
+\begin{equation*}
+G_{n+1}=G_n+\xi_{n+1}
+\end{equation*}
+avec
+\begin{equation*}
+   \xi_{n+1}= \left \{ \begin{array}{ccc}
+    2  & \text{ avec probabilit\'e } & p_n \vspace{1ex}\\
+    1  & \text{ avec probabilit\'e } & q_n \vspace{1ex}\\
+    2  & \text{ avec probabilit\'e } & 1-p_n-q_n 
+   \end{array} \nonumber \right.
+\end{equation*}
+où
+$$
+p_n= \frac{n-1-G_n}{n+1}
+\hspace{1cm}\text{et}\hspace{1cm}q_n= \frac{2}{n+1} .
+$$
+On peut montrer la convergence presque sure
+$$
+\lim_{n\rightarrow \infty} \frac{G_n}{n}=\frac{2}{3} \hspace{1cm}\text{p.s.}
+$$
+ainsi que la normalité asymptotique
+$$
+\sqrt{n}\Bigl( \frac{G_n}{n} - \frac{2}{3} \Bigr) \liml \cN \Bigl(0, \frac{4}{9}\Bigr).
+$$
+
+\section{Longueur de la plus grande sous-suite altern\'ee.}
+
+On souhaite finalement étudier la longueur de la plus grande sous-suite alternée d'une permutation aléatoire. Soit 
+$L_n=L_n(\pi)$ la variable aléatoire correspondant à la longueur de la plus grande sous-suite alternée 
+d'une permutation $\pi$ choisie aléatoirement dans $S_n$. 
+On a  \cite{Bona12}, \cite{Ozdemir19} pour tout $n \geq 1$,
+\begin{equation*}
+    \left \{ \begin{array}{ccc}
+    \dP(L_{n+1}  = L_{n}+2|L_n)  & =&{\displaystyle  \frac{n-L_n}{n+1} }, \vspace{1ex}\\
+    \dP(L_{n+1}  = L_{n}+1|L_n)  & =&{\displaystyle  \frac{1}{n+1} }, \vspace{1ex}\\
+    \dP(L_{n+1}  =  L_{n}|L_n) & = & {\displaystyle \frac{L_n}{n+1}}.
+   \end{array} \nonumber \right.
+\end{equation*}
+On en déduit la décomposition
+\begin{equation*}
+L_{n+1}=L_n+\zeta_{n+1}
+\end{equation*}
+avec
+\begin{equation*}
+   \zeta_{n+1}= \left \{ \begin{array}{ccc}
+    2  & \text{ avec probabilit\'e } & p_n \vspace{1ex}\\
+    1  & \text{ avec probabilit\'e } & q_n \vspace{1ex}\\
+    2  & \text{ avec probabilit\'e } & 1-p_n-q_n 
+   \end{array} \nonumber \right.
+\end{equation*}
+où
+$$
+p_n= \frac{n-L_n}{n+1}
+\hspace{1cm}\text{et}\hspace{1cm}q_n= \frac{1}{n+1} .
+$$
+On peut montrer la convergence presque sure
+$$
+\lim_{n\rightarrow \infty} \frac{L_n}{n}=\frac{2}{3} \hspace{1cm}\text{p.s.}
+$$
+De plus, Widom \cite{W2006} a montré la normalité asymptotique, voir aussi \cite{H2010} pour une approche probabiliste
+$$
+\sqrt{n}\Bigl( \frac{L_n}{n} - \frac{2}{3} \Bigr) \liml \cN \Bigl(0, \frac{8}{45}\Bigr).
+$$
+
+Voici les principaux objectifs de ce projet.
+
+\begin{enumerate}
+\item[1)] Créer un premier code Python permettant de simuler le processus $(D_n)$ et 
+de visualiser la convergence presque sûre et la normalité asymptotique associées à $(D_n)$.
+\item[2)] Créer un second code Python permettant de simuler le processus $(G_n)$ et 
+de visualiser la convergence presque sûre et la normalité asymptotique associées à $(G_n)$.
+\item[3)] Créer un troisième code Python permettant de simuler le processus $(L_n)$ et 
+de visualiser la convergence presque sûre et la normalité asymptotique associées à $(L_n)$.
+\item[4)] Proposer d'autres statistiques intéressantes \cite{Bona12} liées aux permutations aléatoires
+et étudier leurs comportements asymptotiques par simulation.
+\end{enumerate}
+
+
+
+\bibliographystyle{acm}
+\begin{thebibliography}{1}
+
+\bibitem{Bona12}
+{\sc Bona, M.}
+\newblock Combinatorics of permutations,
+\newblock {\em Chapman and Hall}, 2012.
+
+
+\bibitem{Chat-Diaconis17}
+{\sc Chattterjee, S., and Diaconis, P.} 
+\newblock A central limit theorem for a new statistic on permutation.
+\newblock {\em Indian. J. Pure Ap. Mat. 48}, 4 (2017), pp. 561-573.
+
+\bibitem{H2010} {\sc Houdr\'e, C., and Restrepo, R.} \newblock A probabilistic approach to the asymptotics of the length of the longest alternating subsequence.
+\newblock {\em Electronic Journal of Combinatorics, 17}, (2010).
+
+
+\bibitem{Ozdemir19}{\sc Ozdemir, A.}
+\newblock Martingales and descent statistics. 
+\newblock ArXiv:1901.01719v2, Submitted for publication (2019).
+
+
+\bibitem{W2006} {\sc Widom, H} \newblock On the limiting distribution for the length of the longest alternating sequence in a random permutation.
+\newblock {\em Electronic Journal of Combinatorics, 13}, (2006).
+
+
+\end{thebibliography}
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
